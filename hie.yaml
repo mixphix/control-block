@@ -1,4 +1,4 @@
 cradle:
   cabal:
     - path: "lib"
-      component: "lib:blocks"
+      component: "lib:control-block"
