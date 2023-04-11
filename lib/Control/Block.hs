@@ -51,11 +51,11 @@ reduce = flip foldMap
 ireduce :: (FoldableWithIndex i t, Monoid m) => t x -> (i -> x -> m) -> m
 ireduce = flip ifoldMap
 
-reduceL :: (Foldable t) => (y -> x -> y) -> y -> t x -> y
-reduceL = foldl'
+reduceL :: (Foldable t) => y -> t x -> (y -> x -> y) -> y
+reduceL = flip . flip foldl'
 
-reduceR :: (Foldable t) => (x -> y -> y) -> y -> t x -> y
-reduceR = foldr
+reduceR :: (Foldable t) => y -> t x -> (x -> y -> y) -> y
+reduceR = flip . flip foldr
 
 bind :: (Monad f) => f x -> (x -> f y) -> f y
 bind = (>>=)
