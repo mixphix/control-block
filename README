@@ -1,0 +1,3 @@
+# control-block
+
+Aliases for common higher-order functions with the function argument placed at the end, to avoid having to use `flip` everywhere to fold something with an anonymous lambda.
