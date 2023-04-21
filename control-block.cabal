@@ -3,11 +3,13 @@ name:            control-block
 version:         0.0.0
 license:         BSD-2-Clause
 license-file:    LICENSE
-author:          Melanie Phoenix
+author:          Melanie Phoenix Brown
 maintainer:      brown.m@proton.me
 category:        Control
 build-type:      Simple
 extra-doc-files: CHANGELOG.md
+synopsis:
+  Higher-order functions with their function arguments at the end
 
 library
   ghc-options:        -Wall
@@ -29,9 +31,8 @@ library
     ViewPatterns
 
   build-depends:
-    , base
+    , base                 >=4.14 && <5
     , containers
     , indexed-traversable
 
-  exposed-modules:
-    Control.Block
+  exposed-modules:    Control.Block
