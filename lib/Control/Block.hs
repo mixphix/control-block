@@ -1,38 +1,44 @@
-module Control.Block (
-  -- * Functor
-  (<$>),
-  (<&>),
-  fmap,
-  imap,
-  change,
-  ichange,
+module Control.Block
+  ( -- * Functor
+    (<$>)
+  , (<&>)
+  , fmap
+  , imap
+  , change
+  , ichange
 
-  -- * Foldable
-  foldMap,
-  ifoldMap,
-  reduce,
-  reduceL,
-  reduceR,
-  ireduce,
-  ifor_,
-  itraverse_,
+    -- * Foldable
+  , foldMap
+  , ifoldMap
+  , reduce
+  , reduceL
+  , reduceR
+  , ireduce
+  , ifor_
+  , itraverse_
 
-  -- * Traversable
-  traverse,
-  itraverse,
-  for,
-  ifor,
+    -- * Traversable
+  , traverse
+  , itraverse
+  , for
+  , ifor
 
-  -- * Monad
-  bind,
-  ibind,
-) where
+    -- * Monad
+  , bind
+  , ibind
+
+    -- * Maybe and List
+  , perhaps
+  , plenty
+  )
+where
 
 import Control.Monad (join)
 import Data.Foldable (foldl')
 import Data.Foldable.WithIndex (FoldableWithIndex (ifoldMap), ifor_, itraverse_)
 import Data.Functor ((<&>))
 import Data.Functor.WithIndex (FunctorWithIndex (imap))
+import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.Traversable (for)
 import Data.Traversable.WithIndex (TraversableWithIndex (itraverse), ifor)
 
@@ -62,3 +68,9 @@ bind = (>>=)
 
 ibind :: (FunctorWithIndex i f, Monad f) => f x -> (i -> x -> f y) -> f y
 ibind = (join .) . ichange
+
+perhaps :: Maybe x -> y -> (x -> y) -> y
+perhaps mx nothing just = maybe nothing just mx
+
+plenty :: [x] -> y -> (NonEmpty x -> y) -> y
+plenty lx y xy = case lx of [] -> y; (x : xs) -> xy (x :| xs)
